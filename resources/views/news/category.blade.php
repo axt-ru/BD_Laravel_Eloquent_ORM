@@ -15,9 +15,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h1>Новости категории {{ $category }}</h1>
-                        @dd($news)
+
                         @forelse($news as $item)
-                            <a href="{{ route('news.show', $news ->id) }}"> {{ $news->title }}</a><br>
+                            <a href="{{ route('news.show', $item['id']) }}"> {{ $item['title'] }}</a><br>
                         @empty
                             <p>Нет новостей</p>
                         @endforelse

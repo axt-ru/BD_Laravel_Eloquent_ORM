@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-    @parent Тест 2
-@endsection
+@section('title', 'test 1')
 
 @section('menu')
     @include('admin.menu')
@@ -13,13 +11,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h1 class="card-title">
-                            @yield('title')
-                        </h1>
-                    </div>
                     <div class="card-body">
-                        <p class="card-text">Тест 2</p>
+                        <p>Тест 2</p>
                     </div>
                 </div>
             </div>

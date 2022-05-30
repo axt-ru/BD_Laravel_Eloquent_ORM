@@ -15,16 +15,13 @@
 </li>
 
 <li class="nav-item {{ request()->routeIs('admin.index')?'active':'' }}">
-    <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+    <a class="nav-link" href="{{ route('admin.index') }}">Панель администратора</a>
 </li>
 
 <li class="nav-item {{ request()->routeIs('feedback')?'active':'' }}">
     <a class="nav-link" href="{{ route('feedback') }}">Обратная связь</a>
 </li>
 
-<li class="nav-item {{ request()->routeIs('order')?'active':'' }}">
-    <a class="nav-link" href="{{ route('order') }}">Заказ</a>
-</li>
 
 
 

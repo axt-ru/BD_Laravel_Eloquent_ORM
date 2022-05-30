@@ -13,19 +13,18 @@
                 <div class="card">
                     <div class="card-body">
                         @if ($news)
-                            <h2>{{ $news->title }}</h2>
-                            @if ($news)
-{{--                            @if (!$news['isPrivate'])--}} <!--  Показ новости при аутентификации-->
-                                <img src="<?=$news->image ?>" style="width: 200px" alt="image">
+                            <h2>{{ $news->title}}</h2>
+{{--                            <img src="{{ Storage::url('default.jpg') }}" alt="">--}}
+                            <div class="card-img"
+                                 style="background-image: url({{ $news->image ?? asset('storage/default.jpg') }})"></div>
+                            @if (!$news->isPrivate)
                                 <br>
-                                <p><strong>Автор: </strong> <?=$news->author ?></p>
-                                <p><?=$news->description ?></p>
-                                <hr>
+                                <p>{{ $news->text}}</p>
                             @else
-                                Для просмотра новости зарегистрируйтесь
+                                Зарегистрируйтесь для просмотра
                             @endif
                         @else
-                            Такой новости нет с таким id
+                            Нет новости с таким id
                         @endif
                     </div>
                 </div>

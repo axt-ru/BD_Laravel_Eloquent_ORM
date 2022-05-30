@@ -3,85 +3,75 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsRequest;
+use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function index() {
+
+
+        return view('admin.index', [
+            'news' => News::all()
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function create(News $news) {
+
+        return view('admin.create',[
+            'news' => $news,
+            'categories' => Category::all()
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(NewsRequest $request, News $news) {
+
+        $request->validated();
+
+        $url = null;
+        if ($request->file('image')) {
+            $path = Storage::putFile('public/img', $request->file('image'));
+            $url = Storage::url($path);
+        }
+
+        $news->image = $url;
+        $news->fill($request->all())->save();
+
+
+        return redirect()->route('news.show', $news->id)->with('success', 'Новость добавлена');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-//        $news = DB::table('news')->find($id); //getOne($id)
-//
-//        return view('news.one')->with('news', $news);
+    public function update(Request $request, News $news) {
+        $request->flash();
+
+        $url = null;
+        if ($request->file('image')) {
+            $path = Storage::putFile('public/img', $request->file('image'));
+            $url = Storage::url($path);
+        }
+
+        $news->image = $url;
+        $news->fill($request->all())->save();
+
+
+        return redirect()->route('news.show', $news->id)->with('success', 'Новость изменена');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function destroy(News $news) {
+        $news->delete();
+        return redirect()->route('admin.index')->with('success', 'Новость удалена');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    public function edit(News $news) {
+
+        return view('admin.create',[
+            'news' => $news,
+            'categories' => Category::all()
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

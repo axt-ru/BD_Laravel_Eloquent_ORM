@@ -13,9 +13,11 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
+                    <div class="card-header">
+                    </div>
                     <div class="card-body">
                         <h2>Главная</h2>
-                        <p>Добро пожаловать на сайт - агрегатор новостей!</p>
+                        <p>Добро пожаловать!</p>
                     </div>
                 </div>
             </div>
